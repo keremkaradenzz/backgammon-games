@@ -1,0 +1,18 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,500;0,700;1,400&display=swap');
+
+*{
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  font-size: 'Roboto', sans-serif;
+}
+
+body{
+  margin:0;
+  padding:0;
+  box-sizing: border-box;
+
+  .main{
+    display:flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
