@@ -9,9 +9,16 @@ interface IBoardLineProps {
 const BoardLine: React.FC<IBoardLineProps> = ({ bgcolor, count = 0 }) => {
   const newArray = Array(count).fill('');
 
-
+  function handleDrop(e:React.DragEvent){
+     e.preventDefault();
+     console.log(e.target);
+  }
+  function handleDragOver(e:React.DragEvent){
+    e.preventDefault();
+    //console.log(e.target);
+ }
   return (
-      <div className='line' style={{ background:bgcolor,borderColor: `transparent transparent ${bgcolor} transparent` }}>
+      <div className='line' onDragOver={handleDragOver} onDrop={e=> handleDrop(e)} style={{ background:bgcolor,borderColor: `transparent transparent ${bgcolor} transparent` }}>
         {
           newArray.map((i,index)=> {
             return <Stone  key={index}/>
