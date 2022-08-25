@@ -2,11 +2,11 @@ import React from 'react'
 import './index.scss';
 
 interface IStoneProps {
-  bgcolorFirst: string;
-  bgcolorSecond: string;
+  bgcolorFirst?: string;
+  bgcolorSecond?: string;
 }
 
-const Stone:React.FC <IStoneProps> = ({bgcolorFirst, bgcolorSecond}) => {
+const Stone:React.FC <IStoneProps> = ({bgcolorFirst = 'black', bgcolorSecond = 'gray'}) => {
   return (
     <div className='stone' style={{background:bgcolorFirst}}>
       <div className='round' style={{background:bgcolorSecond}}>

@@ -6,8 +6,8 @@ const Board:React.FC = () => {
   return (
     <div className='board-out'>
       <div className='board-in'>
-        <div className='board-first' style={{transform:'rotate(180deg)', marginTop:-50}}>
-            <BoardLine bgcolor='red' />
+        <div className='board-first' style={{transform:'rotate(180deg)', marginTop:-100}}>
+            <BoardLine bgcolor='red' count={5}/>
             <BoardLine bgcolor='black' />
             <BoardLine bgcolor='red' />
             <BoardLine bgcolor='black' />
@@ -22,7 +22,7 @@ const Board:React.FC = () => {
         </div>
       
         <div className='board-line'/>
-        <div className='board-first' style={{marginTop:100}} >
+        <div className='board-first' style={{marginTop:200}} >
             <BoardLine bgcolor='red' />
             <BoardLine bgcolor='black' />
             <BoardLine bgcolor='red' />
@@ -31,7 +31,7 @@ const Board:React.FC = () => {
             <BoardLine bgcolor='black' />
             <BoardLine bgcolor='red' />
             <BoardLine bgcolor='black' />
-            <BoardLine bgcolor='red' />
+            <BoardLine bgcolor='red' count={3} />
             <BoardLine bgcolor='black' />
             <BoardLine bgcolor='red' />
             <BoardLine bgcolor='black' />

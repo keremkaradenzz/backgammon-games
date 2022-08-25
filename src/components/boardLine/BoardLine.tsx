@@ -1,12 +1,24 @@
 import React from 'react'
+import Stone from '../stone/Stone';
 import './index.scss';
 
-interface IBoardLineProps { 
-  bgcolor : string;
+interface IBoardLineProps {
+  bgcolor: string;
+  count?: number;
 }
-const BoardLine:React.FC<IBoardLineProps> = ({bgcolor}) => {
+const BoardLine: React.FC<IBoardLineProps> = ({ bgcolor, count = 0 }) => {
+  const newArray = Array(count).fill('');
+
+
   return (
-    <div className='line' style={{borderColor:`transparent transparent ${bgcolor} transparent`}}></div>
+      <div className='line' style={{ background:bgcolor,borderColor: `transparent transparent ${bgcolor} transparent` }}>
+        {
+          newArray.map(i => {
+            return <Stone />
+          })
+        }
+      </div>
+   
   )
 }
 
