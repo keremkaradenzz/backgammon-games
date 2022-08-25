@@ -13,8 +13,8 @@ const BoardLine: React.FC<IBoardLineProps> = ({ bgcolor, count = 0 }) => {
   return (
       <div className='line' style={{ background:bgcolor,borderColor: `transparent transparent ${bgcolor} transparent` }}>
         {
-          newArray.map(i => {
-            return <Stone />
+          newArray.map((i,index)=> {
+            return <Stone  key={index}/>
           })
         }
       </div>
