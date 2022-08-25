@@ -3,10 +3,12 @@ import './index.scss';
 
 interface IBoardLineProps { 
   bgcolor : string;
+  degree : number | 0
 }
-const BoardLine:React.FC<IBoardLineProps> = ({bgcolor}) => {
+const BoardLine:React.FC<IBoardLineProps> = ({bgcolor, degree}) => {
+  console.log(degree)
   return (
-    <div className='line' style={{ borderColor:`transparent transparent ${bgcolor} transparent`}}></div>
+    <div className='line' style={{transform:`rotate(${degree}deg)`, borderColor:`transparent transparent ${bgcolor} transparent`}}></div>
   )
 }
 
