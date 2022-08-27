@@ -14,8 +14,8 @@ const Board: React.FC<IProps> = ({ gameData }) => {
         <div className='board-first' style={{ transform: 'rotate(180deg)', marginTop: -100 }}>
           {
             gameData.map((game, i) => i < 12 && (i % 2 === 0 ?
-              <BoardLine bgcolor='black' count={game.haveStone.length} /> :
-              <BoardLine bgcolor='red' count={game.haveStone.length} />
+              <BoardLine bgcolor='black' count={game.haveStone.length} game={game} /> :
+              <BoardLine bgcolor='red' count={game.haveStone.length} game={game}/>
             ))}
         </div>
 
@@ -23,8 +23,8 @@ const Board: React.FC<IProps> = ({ gameData }) => {
         <div className='board-first' style={{ marginTop: 200 }} >
           {
             gameData.map((game, i) => i >= 12 && (i % 2 === 0 ?
-              <BoardLine bgcolor='black' count={game.haveStone.length} /> :
-              <BoardLine bgcolor='red' count={game.haveStone.length} />
+              <BoardLine bgcolor='black' count={game.haveStone.length} game={game}/> :
+              <BoardLine bgcolor='red' count={game.haveStone.length} game={game} />
             ))}
         </div>
 
