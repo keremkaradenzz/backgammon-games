@@ -2,14 +2,16 @@ import React from 'react';
 import './app.scss';
 import Stone from './components/stone/Stone';
 import Games from './pages/Games/Games';
-function App() {
-  return (
-    <div className="main">
-       <Games />
-       <Stone bgcolorFirst='black'  bgcolorSecond='gray'/>
+import GameProvider from "./context/gameContext";
 
-    </div>
-  );
+function App() {
+    return (
+        <GameProvider>
+            <div className="main">
+                <Games/>
+            </div>
+        </GameProvider>
+    );
 }
 
 export default App;
