@@ -1,7 +1,7 @@
 import {IData} from "./types";
 
 
-export const data = [
+export const data:IData[]= [
     {
         lineId: 0,
         haveStone: ['S', 'S'],
