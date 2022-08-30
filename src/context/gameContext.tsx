@@ -7,8 +7,8 @@ export const GameContext = React.createContext<GameContextType | null>(null);
 const GameProvider: React.FC<{ children: React.ReactNode }> = ({children}) => {
     const [gameData, setGameData] = React.useState<IData[]>(data);
 
-    const updateGameData = (id: number) => {
-        setGameData(prevState => prevState.filter(game => game.lineId === id));
+    const updateGameData = (data: IData[]) => {
+        setGameData(data);
     }
     return (
         <GameContext.Provider value={{gameData, updateGameData}}>

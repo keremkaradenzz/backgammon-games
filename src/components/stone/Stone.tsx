@@ -10,6 +10,7 @@ interface IStoneProps {
 type DragStoneType = {
     lineId: number,
     id:number,
+    stoneType : string,
 }
 const Stone:React.FC <IStoneProps> = ({bgcolorFirst = 'black', bgcolorSecond = 'gray', lineId, id}) => {
 
@@ -17,7 +18,8 @@ const Stone:React.FC <IStoneProps> = ({bgcolorFirst = 'black', bgcolorSecond = '
       console.log(e.target)
       const dragStone:DragStoneType = {
           lineId,
-          id
+          id,
+          stoneType : bgcolorFirst === 'black' ? 'S' : 'B', 
       }
       localStorage.setItem('stone', JSON.stringify(dragStone))
   }

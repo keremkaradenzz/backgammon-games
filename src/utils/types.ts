@@ -6,5 +6,5 @@ export interface  IData {
 
 export type GameContextType = {
     gameData: IData[];
-    updateGameData: (id: number) => void;
+    updateGameData: (data:IData[]) => void;
 };

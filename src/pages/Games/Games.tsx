@@ -1,12 +1,10 @@
 import React from 'react'
 import Board from '../../components/board/Board'
-import { useReducer } from 'react'
 import { GameContext } from '../../context/gameContext';
 import { GameContextType } from '../../utils/types';
 
 const Games = () => {
-  const { gameData, updateGameData } = React.useContext(GameContext) as GameContextType;
-
+  const { gameData } = React.useContext(GameContext) as GameContextType;
   return (
     <div className='games'>Games
       <Board gameData={gameData}/>
