@@ -16,6 +16,7 @@ const BoardLine: React.FC<IBoardLineProps> = ({ bgcolor, game }) => {
 
   function handleDrop(e: React.DragEvent) {
     e.preventDefault();
+    const droppedId = game.lineId;
     const dragStone:DragStoneType = JSON.parse(localStorage.getItem('stone') || '{}') ;
     if(dragStone){
       console.log(dragStone)
@@ -24,6 +25,7 @@ const BoardLine: React.FC<IBoardLineProps> = ({ bgcolor, game }) => {
   }
   function handleDragOver(e: React.DragEvent) {
     e.preventDefault();
+    console.log('drop=>', game.lineId);
     //console.log(e.target);
   }
   return (
