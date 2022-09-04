@@ -2,7 +2,7 @@ import React from 'react'
 import './index.scss';
 const Dice = () => {
   return (
-    <div>Dice</div>
+    <div className='dice-wrapper'>Dice</div>
   )
 }
 
