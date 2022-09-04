@@ -15,7 +15,6 @@ type DragStoneType = {
 const Stone:React.FC <IStoneProps> = ({bgcolorFirst = 'black', bgcolorSecond = 'gray', lineId, id}) => {
 
   function handleDragStart(e:React.DragEvent){
-      console.log(e.target)
       const dragStone:DragStoneType = {
           lineId,
           id,

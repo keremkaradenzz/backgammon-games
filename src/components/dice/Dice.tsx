@@ -1,9 +1,39 @@
-import React from 'react'
-import './index.scss';
-const Dice = () => {
-  return (
-    <div className='dice-wrapper'>Dice</div>
-  )
+import React, { useEffect, useState } from 'react';
+import './index.scss'
+
+function Dice(props: any) {
+  if (props.draw === 1) {
+    return <div className="dice img-1"></div>;
+  } else if (props.draw === 2) {
+    return <div className="dice img-2"></div>;
+  } else if (props.draw === 3) {
+    return <div className="dice img-3"></div>;
+  } else if (props.draw === 4) {
+    return <div className="dice img-4"></div>;
+  } else if (props.draw === 5) {
+    return <div className="dice img-5"></div>;
+  } else if (props.draw === 6) {
+    return <div className="dice img-6"></div>;
+  } else {
+    return <div className="dice ">!!!</div>;
+  }
+}
+function RollDice(props: any) {
+  const [draw, setDraw] = useState(1);
+  let counter = 0;
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      counter += 1;
+      if (counter >= 15)
+        clearInterval(interval);
+
+      setDraw(Math.round((Math.random() * 5) + 1));
+    }, 100);
+
+  }, [props.isIsolated, props.diceRef]);
+
+  return <Dice draw={draw} />;
 }
 
-export default Dice
+export default RollDice;
