@@ -15,6 +15,12 @@ type DragStoneType = {
 }
 const BoardLine: React.FC<IBoardLineProps> = ({ bgcolor, game }) => {
   const { gameData, updateGameData } = React.useContext(GameContext) as GameContextType;
+
+  const droppedControl = (data: string[], type: string) => {
+    let filteredData = data.filter((i: any) => i === type);
+    return filteredData.length;
+  }
+
   function handleDrop(e: React.DragEvent) {
     const droppedId = game.lineId;
     const dragStone: DragStoneType = JSON.parse(localStorage.getItem('stone') || '{}');
@@ -24,8 +30,13 @@ const BoardLine: React.FC<IBoardLineProps> = ({ bgcolor, game }) => {
       if (droppedId <= dragStone.lineId && dragStone.stoneType === 'B') {
         copyData.forEach((item: any, index: number) => {
           if (item.lineId === droppedId) {
-            item.haveStone.push('B');
-          } if (item.lineId === dragStone.lineId) {
+            if (droppedControl(copyData[droppedId].haveStone, 'S') === 0) {
+              item.haveStone.push('B');
+            } else {
+              return;
+            }
+
+          } if (item.lineId === dragStone.lineId && droppedControl(copyData[droppedId].haveStone, 'S') === 0) {
             item.haveStone.pop();
           }
           return item;
@@ -33,8 +44,12 @@ const BoardLine: React.FC<IBoardLineProps> = ({ bgcolor, game }) => {
       } else if (droppedId >= dragStone.lineId && dragStone.stoneType === 'S') {
         copyData.forEach((item: any, index: number) => {
           if (item.lineId === droppedId) {
-            item.haveStone.push('S');
-          } if (item.lineId === dragStone.lineId) {
+            if (droppedControl(copyData[droppedId].haveStone, 'B') === 0) {
+              item.haveStone.push('S');
+            } else {
+              return;
+            }
+          } if (item.lineId === dragStone.lineId && droppedControl(copyData[droppedId].haveStone, 'B') === 0) {
             item.haveStone.pop();
           }
           return item;

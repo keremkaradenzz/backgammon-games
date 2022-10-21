@@ -6,17 +6,20 @@ import RollDice from '../../components/dice/Dice';
 import './index.scss'
 const Games = () => {
   const { gameData } = React.useContext(GameContext) as GameContextType;
-  const [diceRef, setDiceRef] = useState(false);
+  const [diceRef, setDiceRef] = useState<any>(false);
 
 
-  const updateDiceCount = (diceNumber: number) => setDiceRef(!diceRef);
+  const updateDiceCount = (diceNumber: number) => { 
+    
+    setDiceRef(!diceRef);
+  }
   return (
     <div className='games'>
       <div className='dice-wrapper'>
         <RollDice diceRef={diceRef} isIsolated={false} />
         <RollDice diceRef={diceRef} isIsolated={false} />
       </div>
-      <button onClick={() => updateDiceCount(2)}>Roll !</button>
+      <button style={{marginBottom:10, zIndex:999}} onClick={() => updateDiceCount(2)}>Roll !</button>
       <Board gameData={gameData} />
     </div>
   )
