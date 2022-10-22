@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import Board from '../../components/board/Board'
 import { GameContext } from '../../context/gameContext';
 import { GameContextType } from '../../utils/types';
@@ -10,7 +10,6 @@ const Games = () => {
 
 
   const updateDiceCount = (diceNumber: number) => { 
-    
     setDiceRef(!diceRef);
   }
   return (

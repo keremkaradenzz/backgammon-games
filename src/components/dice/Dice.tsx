@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import './index.scss'
 
 function Dice(props: any) {
@@ -21,8 +21,8 @@ function Dice(props: any) {
 function RollDice(props: any) {
   const [draw, setDraw] = useState(1);
   let counter = 0;
-
-  useEffect(() => {
+  
+  useMemo(() => {
     const interval = setInterval(() => {
       counter += 1;
       if (counter >= 15)
