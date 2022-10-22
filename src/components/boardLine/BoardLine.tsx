@@ -20,8 +20,8 @@ type DragStoneType = {
 // 3.si lineId dragStone id === 
 const BoardLine: React.FC<IBoardLineProps> = ({ bgcolor, game }) => {
   const { gameData, updateGameData } = React.useContext(GameContext) as GameContextType;
- 
- 
+
+
 
   const droppedControl = (data: any, item: DragStoneType, dragItem: DragStoneType) => {
     const droppedId = game.lineId;
@@ -39,16 +39,29 @@ const BoardLine: React.FC<IBoardLineProps> = ({ bgcolor, game }) => {
     return false;
   }
 
-  function handleDrop(e: React.DragEvent) {
+
+  const moveStone = (dragStone: any) => {
     const TOTAL_MOVE = Number((localStorage.getItem('0'))) + Number(localStorage.getItem('1'));
-    console.log(TOTAL_MOVE);
+    const droppedId = game.lineId;
+    console.log({ total_move: TOTAL_MOVE, droppedId, lineId: dragStone })
+
+    if (dragStone.stoneType === 'B' && TOTAL_MOVE < dragStone.lineId - droppedId) { return false }
+    if (dragStone.stoneType === 'S' && TOTAL_MOVE < droppedId - dragStone.lineId) { return false }
+
+    return true;
+  }
+
+  function handleDrop(e: React.DragEvent) {
+
     const dragStone: DragStoneType = JSON.parse(localStorage.getItem('stone') || '{}');
     let copyData = JSON.parse(JSON.stringify(gameData));
     if (dragStone) {
       copyData.forEach((item: any, index: number) => {
         if (droppedControl(copyData, item, dragStone)) {
-          item.haveStone.push(dragStone.stoneType);
-          copyData[dragStone.lineId].haveStone.pop();
+          if (moveStone(dragStone)) {
+            item.haveStone.push(dragStone.stoneType);
+            copyData[dragStone.lineId].haveStone.pop();
+          }
         }
         return item;
       });
