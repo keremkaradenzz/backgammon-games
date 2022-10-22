@@ -13,48 +13,42 @@ type DragStoneType = {
   lineId: number;
   stoneType: string;
 }
+
+
+// 1. enemy renk 2 den fazlaysa oraya drop yapilmayacak 
+// 2.si lineId drop id esitse drop yapilir 
+// 3.si lineId dragStone id === 
 const BoardLine: React.FC<IBoardLineProps> = ({ bgcolor, game }) => {
   const { gameData, updateGameData } = React.useContext(GameContext) as GameContextType;
 
-  const droppedControl = (data: string[], type: string) => {
-    let filteredData = data.filter((i: any) => i === type);
-    return filteredData.length;
+  const droppedControl = (data: any, item: DragStoneType, dragItem: DragStoneType) => {
+    const droppedId = game.lineId;
+    let enemyColor = dragItem.stoneType === 'B' ? 'S' : 'B'
+    let filteredData = data?.[droppedId]?.haveStone?.filter((i: any) => i === enemyColor);
+    if (filteredData?.length > 1) return false;
+    if (droppedId <= dragItem.lineId && dragItem.stoneType === 'B') {
+      if (item.lineId === droppedId) return true;
+      else return false;
+    }
+    if (droppedId >= dragItem.lineId && dragItem.stoneType === 'S') {
+      if (item.lineId === droppedId) return true;
+      else return false;
+    }
+    return false;
   }
 
   function handleDrop(e: React.DragEvent) {
-    const droppedId = game.lineId;
+
     const dragStone: DragStoneType = JSON.parse(localStorage.getItem('stone') || '{}');
     let copyData = JSON.parse(JSON.stringify(gameData));
-
     if (dragStone) {
-      if (droppedId <= dragStone.lineId && dragStone.stoneType === 'B') {
-        copyData.forEach((item: any, index: number) => {
-          if (item.lineId === droppedId) {
-            if (droppedControl(copyData[droppedId].haveStone, 'S') === 0) {
-              item.haveStone.push('B');
-            } else {
-              return;
-            }
-
-          } if (item.lineId === dragStone.lineId && droppedControl(copyData[droppedId].haveStone, 'S') === 0) {
-            item.haveStone.pop();
-          }
-          return item;
-        });
-      } else if (droppedId >= dragStone.lineId && dragStone.stoneType === 'S') {
-        copyData.forEach((item: any, index: number) => {
-          if (item.lineId === droppedId) {
-            if (droppedControl(copyData[droppedId].haveStone, 'B') === 0) {
-              item.haveStone.push('S');
-            } else {
-              return;
-            }
-          } if (item.lineId === dragStone.lineId && droppedControl(copyData[droppedId].haveStone, 'B') === 0) {
-            item.haveStone.pop();
-          }
-          return item;
-        });
-      }
+      copyData.forEach((item: any, index: number) => {
+        if (droppedControl(copyData, item, dragStone)) {
+          item.haveStone.push(dragStone.stoneType);
+          copyData[dragStone.lineId].haveStone.pop();
+        }
+        return item;
+      });
       updateGameData(copyData);
     }
 

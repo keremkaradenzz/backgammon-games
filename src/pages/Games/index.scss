@@ -1,12 +1,14 @@
 .dice-wrapper{
   display: flex;
-  width:250px;
+  max-width:250px;
+  width: 100%;
   justify-content: space-around;
   margin:10px;
 }
 
 .games{
   display: flex;
+  width: 100%;
   flex-direction: column;
   justify-content: center;
   align-items: center;
