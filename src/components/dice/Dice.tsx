@@ -3,6 +3,10 @@ import './index.scss'
 
 function Dice(props: any) {
   localStorage.setItem(props.id, JSON.stringify(props.draw));
+  if (props.id === 1) {
+    localStorage.setItem('isRoll', JSON.stringify(true));
+    console.log('buradaaa');
+  }
   if (props.draw === 1) {
     return <div className="dice img-1"></div>;
   } else if (props.draw === 2) {
@@ -37,4 +41,4 @@ function RollDice(props: any) {
   return <Dice draw={draw} id={props.id} />;
 }
 
-export default RollDice;
+export const MemoRollDice = React.memo(RollDice);

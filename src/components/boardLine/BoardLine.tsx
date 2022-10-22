@@ -3,6 +3,7 @@ import Stone from '../stone/Stone';
 import './index.scss';
 import { GameContextType, IData } from '../../utils/types';
 import { GameContext } from '../../context/gameContext';
+import { droppedControl } from '../../utils/gameHelper';
 interface IBoardLineProps {
   bgcolor: string;
   game: IData;
@@ -18,46 +19,39 @@ type DragStoneType = {
 // 1. enemy renk 2 den fazlaysa oraya drop yapilmayacak 
 // 2.si lineId drop id esitse drop yapilir 
 // 3.si lineId dragStone id === 
+let TOTAL_MOVE = 0;
 const BoardLine: React.FC<IBoardLineProps> = ({ bgcolor, game }) => {
   const { gameData, updateGameData } = React.useContext(GameContext) as GameContextType;
 
 
-
-  const droppedControl = (data: any, item: DragStoneType, dragItem: DragStoneType) => {
-    const droppedId = game.lineId;
-    let enemyColor = dragItem.stoneType === 'B' ? 'S' : 'B'
-    let filteredData = data?.[droppedId]?.haveStone?.filter((i: any) => i === enemyColor);
-    if (filteredData?.length > 1) return false;
-    if (droppedId <= dragItem.lineId && dragItem.stoneType === 'B') {
-      if (item.lineId === droppedId) return true;
-      else return false;
-    }
-    if (droppedId >= dragItem.lineId && dragItem.stoneType === 'S') {
-      if (item.lineId === droppedId) return true;
-      else return false;
-    }
-    return false;
-  }
-
-
   const moveStone = (dragStone: any) => {
-    const TOTAL_MOVE = Number((localStorage.getItem('0'))) + Number(localStorage.getItem('1'));
     const droppedId = game.lineId;
     console.log({ total_move: TOTAL_MOVE, droppedId, lineId: dragStone })
 
     if (dragStone.stoneType === 'B' && TOTAL_MOVE < dragStone.lineId - droppedId) { return false }
     if (dragStone.stoneType === 'S' && TOTAL_MOVE < droppedId - dragStone.lineId) { return false }
 
+    TOTAL_MOVE = TOTAL_MOVE - Math.abs(droppedId - dragStone.lineId);
     return true;
   }
 
   function handleDrop(e: React.DragEvent) {
+    e.preventDefault();
 
+    let isRoll = JSON.parse(localStorage.getItem('isRoll') || 'false');
+
+    console.log('isFirst', { TOTAL_MOVE, isRoll })
+    if (isRoll) {
+      console.log('birada')
+      TOTAL_MOVE = Number((localStorage.getItem('0'))) + Number(localStorage.getItem('1'));
+      localStorage.setItem('isRoll', JSON.stringify(false));
+    }
     const dragStone: DragStoneType = JSON.parse(localStorage.getItem('stone') || '{}');
     let copyData = JSON.parse(JSON.stringify(gameData));
     if (dragStone) {
+      const droppedId = game.lineId;
       copyData.forEach((item: any, index: number) => {
-        if (droppedControl(copyData, item, dragStone)) {
+        if (droppedControl(copyData, item, dragStone, droppedId)) {
           if (moveStone(dragStone)) {
             item.haveStone.push(dragStone.stoneType);
             copyData[dragStone.lineId].haveStone.pop();
@@ -71,8 +65,6 @@ const BoardLine: React.FC<IBoardLineProps> = ({ bgcolor, game }) => {
   }
   function handleDragOver(e: React.DragEvent) {
     e.preventDefault();
-    console.log('drop=>', game.lineId);
-    //console.log(e.target);
   }
   return (
     <div className='line' onDragOver={handleDragOver} onDrop={e => handleDrop(e)} style={{ background: bgcolor, borderColor: `transparent transparent ${bgcolor} transparent` }}>

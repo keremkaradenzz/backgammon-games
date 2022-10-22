@@ -2,23 +2,23 @@ import React, { useState } from 'react'
 import Board from '../../components/board/Board'
 import { GameContext } from '../../context/gameContext';
 import { GameContextType } from '../../utils/types';
-import RollDice from '../../components/dice/Dice';
+import { MemoRollDice } from '../../components/dice/Dice';
 import './index.scss'
 const Games = () => {
   const { gameData } = React.useContext(GameContext) as GameContextType;
   const [diceRef, setDiceRef] = useState<any>(false);
 
 
-  const updateDiceCount = (diceNumber: number) => { 
+  const updateDiceCount = (diceNumber: number) => {
     setDiceRef(!diceRef);
   }
   return (
     <div className='games'>
       <div className='dice-wrapper'>
-        <RollDice diceRef={diceRef} id={0} isIsolated={false} />
-        <RollDice diceRef={diceRef} id={1} isIsolated={false} />
+        <MemoRollDice diceRef={diceRef} id={0}/>
+        <MemoRollDice diceRef={diceRef} id={1}/>
       </div>
-      <button style={{marginBottom:10, zIndex:999}} onClick={() => updateDiceCount(2)}>Roll !</button>
+      <button style={{ marginBottom: 10, zIndex: 999 }} onClick={() => updateDiceCount(2)}>Roll !</button>
       <Board gameData={gameData} />
     </div>
   )
