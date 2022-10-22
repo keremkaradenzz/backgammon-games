@@ -2,6 +2,7 @@ import React, { useMemo, useState } from 'react';
 import './index.scss'
 
 function Dice(props: any) {
+  localStorage.setItem(props.id, JSON.stringify(props.draw));
   if (props.draw === 1) {
     return <div className="dice img-1"></div>;
   } else if (props.draw === 2) {
@@ -21,7 +22,7 @@ function Dice(props: any) {
 function RollDice(props: any) {
   const [draw, setDraw] = useState(1);
   let counter = 0;
-  
+
   useMemo(() => {
     const interval = setInterval(() => {
       counter += 1;
@@ -33,7 +34,7 @@ function RollDice(props: any) {
 
   }, [props.isIsolated, props.diceRef]);
 
-  return <Dice draw={draw} />;
+  return <Dice draw={draw} id={props.id} />;
 }
 
 export default RollDice;

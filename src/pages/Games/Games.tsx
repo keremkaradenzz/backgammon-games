@@ -15,8 +15,8 @@ const Games = () => {
   return (
     <div className='games'>
       <div className='dice-wrapper'>
-        <RollDice diceRef={diceRef} isIsolated={false} />
-        <RollDice diceRef={diceRef} isIsolated={false} />
+        <RollDice diceRef={diceRef} id={0} isIsolated={false} />
+        <RollDice diceRef={diceRef} id={1} isIsolated={false} />
       </div>
       <button style={{marginBottom:10, zIndex:999}} onClick={() => updateDiceCount(2)}>Roll !</button>
       <Board gameData={gameData} />
