@@ -20,6 +20,8 @@ type DragStoneType = {
 // 3.si lineId dragStone id === 
 const BoardLine: React.FC<IBoardLineProps> = ({ bgcolor, game }) => {
   const { gameData, updateGameData } = React.useContext(GameContext) as GameContextType;
+ 
+ 
 
   const droppedControl = (data: any, item: DragStoneType, dragItem: DragStoneType) => {
     const droppedId = game.lineId;
@@ -38,7 +40,8 @@ const BoardLine: React.FC<IBoardLineProps> = ({ bgcolor, game }) => {
   }
 
   function handleDrop(e: React.DragEvent) {
-
+    const TOTAL_MOVE = Number((localStorage.getItem('0'))) + Number(localStorage.getItem('1'));
+    console.log(TOTAL_MOVE);
     const dragStone: DragStoneType = JSON.parse(localStorage.getItem('stone') || '{}');
     let copyData = JSON.parse(JSON.stringify(gameData));
     if (dragStone) {
