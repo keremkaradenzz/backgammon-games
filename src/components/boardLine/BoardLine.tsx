@@ -26,9 +26,15 @@ const BoardLine: React.FC<IBoardLineProps> = ({ bgcolor, game }) => {
 
   const moveStone = (dragStone: any) => {
     const droppedId = game.lineId;
-    console.log({ total_move: TOTAL_MOVE, droppedId, lineId: dragStone })
-    TOTAL_MOVE = TOTAL_MOVE - Math.abs(droppedId - dragStone.lineId);
-    return true;
+    const firstDice = Number(localStorage.getItem('0'));
+    const secondDice = Number(localStorage.getItem('1'));
+
+    if (firstDice === Math.abs(droppedId - dragStone.lineId) || secondDice === Math.abs(droppedId - dragStone.lineId)) {
+      console.log({ total_move: TOTAL_MOVE, droppedId, lineId: dragStone })
+      TOTAL_MOVE = TOTAL_MOVE - Math.abs(droppedId - dragStone.lineId);
+      return true;
+    }
+    return false;
   }
 
   function handleDrop(e: React.DragEvent) {
@@ -36,7 +42,14 @@ const BoardLine: React.FC<IBoardLineProps> = ({ bgcolor, game }) => {
     let isRoll = JSON.parse(localStorage.getItem('isRoll') || 'false');
     console.log('isFirst', { TOTAL_MOVE, isRoll })
     if (isRoll) {
-      TOTAL_MOVE = Number((localStorage.getItem('0'))) + Number(localStorage.getItem('1'));
+      // dice is even  
+      const firstDice = Number(localStorage.getItem('0'));
+      const secondDice = Number(localStorage.getItem('1'));
+      if (firstDice === secondDice) {
+        TOTAL_MOVE = (firstDice + secondDice) * 2;
+      } else {
+        TOTAL_MOVE = firstDice + secondDice;
+      }
       localStorage.setItem('isRoll', JSON.stringify(false));
     }
     const dragStone: DragStoneType = JSON.parse(localStorage.getItem('stone') || '{}');
