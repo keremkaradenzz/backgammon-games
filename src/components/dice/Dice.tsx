@@ -5,7 +5,6 @@ function Dice(props: any) {
   localStorage.setItem(props.id, JSON.stringify(props.draw));
   if (props.id === 1) {
     localStorage.setItem('isRoll', JSON.stringify(true));
-    console.log('buradaaa');
   }
   if (props.draw === 1) {
     return <div className="dice img-1"></div>;
@@ -29,6 +28,7 @@ function RollDice(props: any) {
 
   useMemo(() => {
     const interval = setInterval(() => {
+      // eslint-disable-next-line react-hooks/exhaustive-deps
       counter += 1;
       if (counter >= 15)
         clearInterval(interval);
